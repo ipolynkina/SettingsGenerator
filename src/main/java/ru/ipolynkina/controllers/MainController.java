@@ -12,6 +12,7 @@ import ru.ipolynkina.writer.WriterToXLS;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -51,7 +52,7 @@ public class MainController implements Initializable {
         if(txtShops.getText().equals("")) return;
 
         List<String> shops = new ArrayList<>();
-        shops.add(txtShops.getText());
+        shops.addAll(Arrays.asList(txtShops.getText().split("\n")));
 
         createSettingsKPIWeightNew(shops);
         if(chkSetOriginalSettings.isSelected()) {
@@ -69,9 +70,9 @@ public class MainController implements Initializable {
     }
 
     private void createSettingsKPIWeightOld(List<String> shops) {
-        settings.add(new Setting(dpBeginDate.getValue(), Main.ctx.getBean(KPIWeightOldForDm.class), shops));
-        settings.add(new Setting(dpBeginDate.getValue(), Main.ctx.getBean(KPIWeightOldForZdm.class), shops));
-        settings.add(new Setting(dpBeginDate.getValue(), Main.ctx.getBean(KPIWeightOldForZdmTo.class), shops));
-        settings.add(new Setting(dpBeginDate.getValue(), Main.ctx.getBean(KPIWeightOldForZdmNto.class), shops));
+        settings.add(new Setting(dpBeginDate.getValue().plusMonths(1), Main.ctx.getBean(KPIWeightOldForDm.class), shops));
+        settings.add(new Setting(dpBeginDate.getValue().plusMonths(1), Main.ctx.getBean(KPIWeightOldForZdm.class), shops));
+        settings.add(new Setting(dpBeginDate.getValue().plusMonths(1), Main.ctx.getBean(KPIWeightOldForZdmTo.class), shops));
+        settings.add(new Setting(dpBeginDate.getValue().plusMonths(1), Main.ctx.getBean(KPIWeightOldForZdmNto.class), shops));
     }
 }

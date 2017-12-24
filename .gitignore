@@ -12,6 +12,9 @@
 *.tar.gz
 *.rar
 
+#vExcel file
+*.xls
+
 # Catalogs
 /.idea/
 /target

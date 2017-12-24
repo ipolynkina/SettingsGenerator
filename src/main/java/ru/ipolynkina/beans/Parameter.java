@@ -27,6 +27,46 @@ public class Parameter {
         this.activate = activate;
     }
 
+    public String getCoefficient() {
+        return coefficient;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public Boolean getUseWithoutCategory() {
+        return useWithoutCategory;
+    }
+
+    public Integer getMinCategory() {
+        return minCategory;
+    }
+
+    public Integer getMaxCategory() {
+        return maxCategory;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getNomenclature() {
+        return nomenclature;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public String getActivate() {
+        return activate;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
