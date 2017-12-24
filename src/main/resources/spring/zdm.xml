@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="kpiWeightNewForZdm" class="ru.ipolynkina.beans.kpiweight.KPIWeightNewForZdm">
+        <constructor-arg value="${kpiWeight}"/>
+        <constructor-arg value="${zdmPost}"/>
+        <constructor-arg value="${useWithoutCategory}"/>
+        <constructor-arg value="${minCategory}"/>
+        <constructor-arg value="${maxCategory}"/>
+        <constructor-arg value="${amount}"/>
+        <constructor-arg value="${type}"/>
+        <constructor-arg value="${nomenclature}"/>
+        <constructor-arg value="${zdmNewValue}"/>
+        <constructor-arg value="${activate}"/>
+    </bean>
+
+    <bean id="kpiWeightOldForZdm" class="ru.ipolynkina.beans.kpiweight.KPIWeightOldForZdm">
+        <constructor-arg value="${kpiWeight}"/>
+        <constructor-arg value="${zdmPost}"/>
+        <constructor-arg value="${useWithoutCategory}"/>
+        <constructor-arg value="${minCategory}"/>
+        <constructor-arg value="${maxCategory}"/>
+        <constructor-arg value="${amount}"/>
+        <constructor-arg value="${type}"/>
+        <constructor-arg value="${nomenclature}"/>
+        <constructor-arg value="${zdmOldValue}"/>
+        <constructor-arg value="${activate}"/>
+    </bean>
+
+</beans>
