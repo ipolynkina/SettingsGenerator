@@ -8,12 +8,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main extends Application {
 
     public final static ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring/spring.xml");
+    private static final Logger LOGGER = LogManager.getLogger(Main.class.getSimpleName());
 
     public static void main(String[] args) {
         launch();
@@ -21,6 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        LOGGER.info("program start");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
         Parent fxmlMain = fxmlLoader.load();
@@ -36,12 +40,17 @@ public class Main extends Application {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Генератор настроек для TS");
             alert.setHeaderText("version: beta");
-            alert.setContentText("release: xx.12.2017\n" + "author: Irina Polynkina\n" + "email: irina.polynkina.dex@yandex.ru");
+            alert.setContentText("release: 24.12.2017\n" + "author: Irina Polynkina\n" + "email: irina.polynkina.dex@yandex.ru");
             alert.showAndWait();
         });
 
         contextMenu.getItems().add(menuItem);
         fxmlMain.setOnContextMenuRequested(event -> contextMenu.show(primaryStage, event.getScreenX(), event.getScreenY()));
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        LOGGER.info("program finish");
     }
 }

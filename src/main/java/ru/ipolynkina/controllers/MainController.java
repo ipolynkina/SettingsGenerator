@@ -3,6 +3,8 @@ package ru.ipolynkina.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.ipolynkina.beans.Coefficients;
 import ru.ipolynkina.beans.kpiweight.*;
 import ru.ipolynkina.main.Main;
@@ -37,6 +39,7 @@ public class MainController implements Initializable {
     private Button btnGenerate;
 
     private List<Setting> settings = new ArrayList<>();
+    private static final Logger LOGGER = LogManager.getLogger(MainController.class.getSimpleName());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,9 +51,15 @@ public class MainController implements Initializable {
 
     @FXML
     private void generate() {
+        LOGGER.info("begin date: " + dpBeginDate.getValue());
+        LOGGER.info("return old values: " + chkSetOriginalSettings.isSelected());
+        LOGGER.info("coefficient: " + cbbCoefficient.getValue());
+        LOGGER.info("shops: " + txtShops.getParagraphs());
+
         if(dpBeginDate.getValue() == null) return;
         if(txtShops.getText().equals("")) return;
 
+        LOGGER.info("generation start");
         List<String> shops = new ArrayList<>();
         shops.addAll(Arrays.asList(txtShops.getText().split("\n")));
 
@@ -61,6 +70,7 @@ public class MainController implements Initializable {
 
         WriterToXLS.writeToXLS(settings);
         showOkDialog("Генератор настроек для TS", "Запись в файл успешно завершена", "Статус: ОК");
+        LOGGER.info("generation end");
     }
 
     private void createSettingsKPIWeightNew(List<String> shops) {
@@ -78,6 +88,7 @@ public class MainController implements Initializable {
     }
 
     private void showOkDialog(String title, String header, String context) {
+        LOGGER.info("show ok dialog");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(header);
