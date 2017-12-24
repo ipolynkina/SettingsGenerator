@@ -60,6 +60,7 @@ public class MainController implements Initializable {
         }
 
         WriterToXLS.writeToXLS(settings);
+        showOkDialog("Генератор настроек для TS", "Запись в файл успешно завершена", "Статус: ОК");
     }
 
     private void createSettingsKPIWeightNew(List<String> shops) {
@@ -74,5 +75,13 @@ public class MainController implements Initializable {
         settings.add(new Setting(dpBeginDate.getValue().plusMonths(1), Main.ctx.getBean(KPIWeightOldForZdm.class), shops));
         settings.add(new Setting(dpBeginDate.getValue().plusMonths(1), Main.ctx.getBean(KPIWeightOldForZdmTo.class), shops));
         settings.add(new Setting(dpBeginDate.getValue().plusMonths(1), Main.ctx.getBean(KPIWeightOldForZdmNto.class), shops));
+    }
+
+    private void showOkDialog(String title, String header, String context) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(context);
+        alert.showAndWait();
     }
 }
