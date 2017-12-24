@@ -1,5 +1,7 @@
 package ru.ipolynkina.writer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,9 +16,11 @@ import java.util.List;
 
 public class WriterToXLS {
 
-    public static void writeToXLS(List<Setting> settings) {
+    private static final Logger LOGGER = LogManager.getLogger(WriterToXLS.class.getSimpleName());
+
+    public static void writeToXLS(List<Setting> settings) throws IOException {
         try (FileInputStream fis = new FileInputStream("src/main/resources/excel/excel.xls");
-             FileOutputStream fos = new FileOutputStream(new File("settings.xls"));
+             FileOutputStream fos = new FileOutputStream(new File("./settings.xls"));
              Workbook wb = new HSSFWorkbook(fis)) {
 
             int indexRow = 1;
@@ -32,10 +36,11 @@ public class WriterToXLS {
                     ++indexRow;
                 }
             }
-
             wb.write(fos);
         } catch (IOException exc) {
-            exc.printStackTrace();
+            LOGGER.warn("current directory: " + new File(".").getAbsolutePath());
+            LOGGER.warn(exc.getMessage());
+            throw new IOException(exc.getMessage());
         }
     }
 }

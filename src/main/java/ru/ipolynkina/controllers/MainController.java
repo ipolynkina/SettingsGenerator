@@ -11,6 +11,7 @@ import ru.ipolynkina.main.Main;
 import ru.ipolynkina.setting.Setting;
 import ru.ipolynkina.writer.WriterToXLS;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -68,9 +69,13 @@ public class MainController implements Initializable {
             createSettingsKPIWeightOld(shops);
         }
 
-        WriterToXLS.writeToXLS(settings);
-        showOkDialog("Генератор настроек для TS", "Запись в файл успешно завершена", "Статус: ОК");
-        LOGGER.info("generation end");
+        try {
+            WriterToXLS.writeToXLS(settings);
+            showOkDialog("Генератор настроек для TS", "Запись в файл успешно завершена", "Статус: ОК");
+            LOGGER.info("generation end");
+        } catch (IOException exc) {
+            showErrorDialog("Генератор настроек для TS", exc.getMessage(), "Статус: ОШИБКА");
+        }
     }
 
     private void createSettingsKPIWeightNew(List<String> shops) {
@@ -90,6 +95,15 @@ public class MainController implements Initializable {
     private void showOkDialog(String title, String header, String context) {
         LOGGER.info("show ok dialog");
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(context);
+        alert.showAndWait();
+    }
+
+    private void showErrorDialog(String title, String header, String context) {
+        LOGGER.info("show error dialog");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(context);
